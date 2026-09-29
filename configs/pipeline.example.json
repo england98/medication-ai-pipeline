@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0",
+  "source": "../data/input.mp4",
+  "start_frame": 0,
+  "output_dir": "../outputs",
+  "test_name": null,
+  "record_input": null,
+  "occurrence": {
+    "schema_version": "1.0",
+    "scheduled_occurrence_id": "test-occurrence-001",
+    "user_id": "test-user-001",
+    "scheduled_at": "2026-09-29T00:00:00.000Z"
+  },
+  "authentication": {
+    "mode": "operator",
+    "operator_confirmed": false,
+    "target_bbox": null
+  },
+  "models": {
+    "object_weights": "../models/yolo11n.pt",
+    "person_weights": "../models/yolo11n.pt",
+    "face_landmarker": "../models/face_landmarker.task",
+    "hand_landmarker": "../models/hand_landmarker.task",
+    "pose_landmarker": "../models/pose_landmarker_lite.task",
+    "device": "cpu",
+    "image_size": 640,
+    "confidence": 0.25,
+    "class_map": {}
+  },
+  "detection": {
+    "analysis_interval_ms": 100,
+    "approach_lookback_ms": 600,
+    "min_active_ms": 100,
+    "release_ms": 500,
+    "medication_labels": ["pill", "tablet", "capsule", "medicine", "medication"],
+    "packaging_labels": ["blister", "medicine packet", "pill bottle", "package"],
+    "container_labels": ["cup", "bottle", "glass", "mug"]
+  },
+  "video": {
+    "buffer_ms": 5000,
+    "pre_ms": {"E01": 1000, "E02": 1500, "E03": 1000},
+    "post_ms": {"E01": 1000, "E02": 1000, "E03": 1000},
+    "max_spool_bytes": 4000000000,
+    "max_roi_frames": 8
+  },
+  "vlm": {
+    "schema_version": "1.0",
+    "model_id": "Qwen/Qwen3-VL-2B-Instruct",
+    "model_revision": "89644892e4d85e24eaac8bacfd4f463576704203",
+    "prompt_version": "vlm-events-v1",
+    "device": "cpu",
+    "dtype": "float32",
+    "max_frames": 8,
+    "include_rois": true,
+    "min_pixels": 3136,
+    "max_pixels": 262144,
+    "max_new_tokens": 768,
+    "do_sample": false,
+    "local_files_only": true,
+    "timestamp_tolerance_ms": 2
+  },
+  "max_pending": 2,
+  "max_queued": 10000
+}

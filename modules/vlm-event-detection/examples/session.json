@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "context": {
+    "session_id": "session-demo-001",
+    "user_id": "user-demo-001",
+    "scheduled_occurrence_id": "occurrence-demo-001",
+    "stream_id": "stream-demo-001",
+    "target_track_id": "person-demo-001"
+  },
+  "session_revision": 1,
+  "auth_id": "auth-demo-001",
+  "scheduled_at": "2026-09-28T00:00:00.000Z",
+  "started_at": "2026-09-28T00:00:00.000Z",
+  "source_time_origin_ms": 0,
+  "session_status": "ACTIVE",
+  "tracking": null,
+  "completion_id": null,
+  "closed_at": null
+}

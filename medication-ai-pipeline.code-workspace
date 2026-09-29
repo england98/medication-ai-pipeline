@@ -1,0 +1,160 @@
+{
+  "folders": [
+    {
+      "name": "medication-ai-pipeline",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "python.defaultInterpreterPath": "${workspaceFolder}/runtime/.venv/Scripts/python.exe",
+    "python.testing.pytestEnabled": true,
+    "python.testing.unittestEnabled": false,
+    "python.testing.cwd": "${workspaceFolder}",
+    "python.testing.pytestArgs": [
+      "tests",
+      "modules/vlm-event-detection/tests"
+    ],
+    "terminal.integrated.env.windows": {
+      "PYTHONUTF8": "1"
+    },
+    "files.watcherExclude": {
+      "**/.venv/**": true,
+      "**/.uv-cache/**": true,
+      "**/models/**": true,
+      "**/outputs/**": true
+    }
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "VLM: 환경 준비",
+        "type": "process",
+        "command": "uv",
+        "args": [
+          "sync",
+          "--locked",
+          "--extra",
+          "dev",
+          "--python",
+          "3.10"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}/modules/vlm-event-detection",
+          "env": {
+            "PYTHONUTF8": "1",
+            "UV_CACHE_DIR": "${workspaceFolder}/modules/vlm-event-detection/.uv-cache"
+          }
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "VLM: 테스트",
+        "type": "process",
+        "command": "${workspaceFolder}/modules/vlm-event-detection/.venv/Scripts/python.exe",
+        "args": [
+          "-X",
+          "utf8",
+          "-m",
+          "pytest",
+          "-q"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}/modules/vlm-event-detection"
+        },
+        "group": {
+          "kind": "test",
+          "isDefault": false
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "VLM: 예제 계약 검사",
+        "type": "process",
+        "command": "${workspaceFolder}/modules/vlm-event-detection/.venv/Scripts/python.exe",
+        "args": [
+          "-X",
+          "utf8",
+          "-m",
+          "vlm_verification",
+          "validate",
+          "--request",
+          "examples/request.e02.json",
+          "--session",
+          "examples/session.json",
+          "--config",
+          "examples/config.cpu.json"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}/modules/vlm-event-detection"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Pipeline: 환경 준비",
+        "type": "shell",
+        "command": "./scripts/setup.ps1 -Mode full",
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Pipeline: 테스트",
+        "type": "process",
+        "command": "${workspaceFolder}/runtime/.venv/Scripts/python.exe",
+        "args": [
+          "-X",
+          "utf8",
+          "-m",
+          "pytest",
+          "-q"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "group": {
+          "kind": "test",
+          "isDefault": true
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Pipeline: 설정 검사",
+        "type": "process",
+        "command": "${workspaceFolder}/runtime/.venv/Scripts/python.exe",
+        "args": [
+          "-X",
+          "utf8",
+          "-m",
+          "medication_pipeline",
+          "validate",
+          "--config",
+          "configs/pipeline.example.json"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Pipeline: 실행",
+        "type": "process",
+        "command": "${workspaceFolder}/runtime/.venv/Scripts/python.exe",
+        "args": [
+          "-X",
+          "utf8",
+          "-m",
+          "medication_pipeline",
+          "run",
+          "--config",
+          "configs/pipeline.local.json"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": []
+      }
+    ]
+  }
+}

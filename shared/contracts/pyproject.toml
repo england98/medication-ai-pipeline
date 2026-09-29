@@ -1,0 +1,20 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "medication-contracts"
+version = "0.1.0"
+requires-python = ">=3.10,<3.14"
+dependencies = ["pydantic>=2.11,<3"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/medication_contracts"]
+
+[tool.uv.sources]
+medication-authentication-tracking = { path = "../../modules/authentication-tracking", editable = true }
+medication-event-detection = { path = "../../modules/event-detection", editable = true }
+medication-session-video = { path = "../../modules/session-video-management", editable = true }
+medication-session-decision = { path = "../../modules/session-decision", editable = true }
+medication-pipeline = { path = "../../runtime", editable = true }
+vlm-event-verification = { path = "../../modules/vlm-event-detection", editable = true }

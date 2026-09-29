@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "medication-pipeline"
+version = "0.1.0"
+requires-python = ">=3.10,<3.14"
+dependencies = ["medication-contracts==0.1.0", "medication-authentication-tracking==0.1.0", "medication-event-detection==0.1.0", "medication-session-video==0.1.0", "medication-session-decision==0.1.0", "vlm-event-verification==0.1.0"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/medication_pipeline"]
+
+[project.optional-dependencies]
+models = ["medication-event-detection[models]==0.1.0", "vlm-event-verification[inference]==0.1.0"]
+detection = ["medication-event-detection[models]==0.1.0"]
+dev = ["pytest>=8,<10", "ruff>=0.11,<1"]
+
+[project.scripts]
+medication-pipeline = "medication_pipeline.cli:main"
+
+[tool.uv.sources]
+medication-contracts = { path = "../shared/contracts", editable = true }
+medication-authentication-tracking = { path = "../modules/authentication-tracking", editable = true }
+medication-event-detection = { path = "../modules/event-detection", editable = true }
+medication-session-video = { path = "../modules/session-video-management", editable = true }
+medication-session-decision = { path = "../modules/session-decision", editable = true }
+vlm-event-verification = { path = "../modules/vlm-event-detection", editable = true }

@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "medication-event-detection"
+version = "0.1.0"
+requires-python = ">=3.10,<3.14"
+dependencies = ["medication-contracts==0.1.0"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/event_detection"]
+
+[project.optional-dependencies]
+models = ["ultralytics>=8.3,<9", "mediapipe>=0.10.21,<0.11", "numpy>=1.26,<3"]
+
+[tool.uv.sources]
+medication-contracts = { path = "../../shared/contracts", editable = true }
+medication-authentication-tracking = { path = "../authentication-tracking", editable = true }
+medication-session-video = { path = "../session-video-management", editable = true }
+medication-session-decision = { path = "../session-decision", editable = true }
+medication-pipeline = { path = "../../runtime", editable = true }
+vlm-event-verification = { path = "../vlm-event-detection", editable = true }

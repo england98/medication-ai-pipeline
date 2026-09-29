@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "model_id": "Qwen/Qwen3-VL-2B-Instruct",
+  "model_revision": "89644892e4d85e24eaac8bacfd4f463576704203",
+  "prompt_version": "vlm-events-v1",
+  "device": "cpu",
+  "dtype": "float32",
+  "max_frames": 8,
+  "include_rois": false,
+  "min_pixels": 3136,
+  "max_pixels": 262144,
+  "max_new_tokens": 768,
+  "do_sample": false,
+  "local_files_only": true,
+  "timestamp_tolerance_ms": 2
+}
